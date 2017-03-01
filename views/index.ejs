@@ -1,0 +1,87 @@
+<% include partials/header %>
+
+<div class="ui container">
+	
+	<h2 class="ui center aligned icon header">
+  		<i class="circular book icon"></i>
+  		Mr. Jenkins 5th Period Class
+	</h2>
+
+	<!-- STUDENTS SECTION -->
+	<h3 class="ui horizontal divider section header">Class List</h3>
+	<div class="ui blue segment">
+		<div class="ui divided relaxed selection list studentList middle aligned">
+
+			<!-- LIST OF STUDENTS ADDED HERE -->
+
+				<% for(var prop in students){%>
+					<div class='item'>
+						<div class='right floated middle aligned content'>
+							<div class='student_gradeAvg'>
+								<strong><%= students[prop].studentAverage%></strong>
+							</div>
+						</div>
+						<% if(students[prop].studentSex === 'f'){ %>
+							<i class="circular female purple icon middle aligned fitted"></i>
+						<% }else if(students[prop].studentSex === 'm'){ %>
+							<i class="bordered male violet icon middle aligned fitted"></i>
+						<% } %>
+						<div class='middle aligned content'>
+							<div class='header student_name'><%= students[prop].studentName %></div>
+							<div class='student_id'>(<%= students[prop].studentID %>)</div>
+							
+						</div>
+					</div>
+				<% } %>
+				
+				
+				
+	  	</div> <!-- divided relaxed list studentList -->
+	</div>
+
+	<!--ADD STUDENT SECTION-->
+  	<h3 class="ui horizontal divider section header">Add Student</h3>
+  	<div class="ui violet secondary segment" id="addStudentSection">
+  		
+		<div class="ui form">
+			<div class="fields">
+				<div class="five wide field">
+		      		<label>First Name</label>
+		      		<input type="text" placeholder="First Name">
+		    	</div>
+		    	
+		    	<div class="one wide field">
+		    		<label>Middle</label>
+		    		<input type="text" placeholder="M">
+		    	</div>
+		    	
+		    	<div class="four wide field">
+		    		<label>Last Name</label>
+		    		<input type="text" placeholder="Last Name">
+		    	</div>
+		    	
+		    	<div class="two wide field">
+		    		<label>Sex</label>
+		    		<select class="ui search dropdown" Placeholder="Sex" name="sex">
+		    			<option value="m">Male</option>
+		    			<option value="f">Female</option>
+		    		</select>
+		    	</div>
+		    	
+		    	<div class="four wide field">
+		      		<label>School ID</label>
+		      		<input type="text" placeholder="ID #">
+		    	</div>
+		    	
+  			</div>
+		</div>
+		
+	</div>
+
+
+
+
+
+	
+</div> <!-- End main body ui container div -->
+<% include partials/footer %>

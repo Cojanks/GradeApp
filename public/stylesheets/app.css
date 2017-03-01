@@ -1,0 +1,24 @@
+body{
+	padding-top: 10px;
+}
+
+.student_name{
+	float: left;
+	vertical-align: middle; 
+
+}
+
+.student_id{
+	float: left;
+	vertical-align: middle; 
+	margin-left: 1vw;
+	color: grey;
+}
+.student_gradeAvg{
+	vertical-align: middle; 
+	padding:.7vh .7vh;
+}
+
+#addStudentSection{
+	margin: 0 4vw;
+}

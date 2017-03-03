@@ -40,6 +40,6 @@ Node and Express Application using MongoDB.
 
 Semantic UI, responsive (though the app is really meant to be seen in a browser on a desktop)
 
-> This is a project which showcases my personal ability to plan an application, strategize and implement a custom database and execute good code methodology and is nothing more.
+> This is a project which showcases my personal ability to plan an application, strategize and implement a custom database and execute good code methodology and nothing more.
 
 

@@ -1,7 +1,7 @@
 <% include partials/header %>
 
 <div class="ui container">
-	
+
 	<h2 class="ui center aligned icon header">
   		<i class="circular book icon"></i>
   		Mr. Jenkins 5th Period Class
@@ -15,7 +15,7 @@
 			<!-- LIST OF STUDENTS ADDED HERE -->
 
 				<% for(var prop in students){%>
-					<div class='item'>
+					<a class='item' href="/student/<%=students[prop]._id%>">
 						<div class='right floated middle aligned content'>
 							<div class='student_gradeAvg'>
 								<strong><%= students[prop].studentAverage%></strong>
@@ -29,37 +29,34 @@
 						<div class='middle aligned content'>
 							<div class='header student_name'><%= students[prop].studentName %></div>
 							<div class='student_id'>(<%= students[prop].studentID %>)</div>
-							
+
 						</div>
-					</div>
+					</a>
 				<% } %>
-				
-				
-				
+
+
+
 	  	</div> <!-- divided relaxed list studentList -->
 	</div>
 
 	<!--ADD STUDENT SECTION-->
   	<h3 class="ui horizontal divider section header">Add Student</h3>
+  	<form action="/" method="POST">
   	<div class="ui violet secondary segment" id="addStudentSection">
-  		
+
 		<div class="ui form">
 			<div class="fields">
-				<div class="five wide field">
+				<div class="four wide field">
 		      		<label>First Name</label>
-		      		<input type="text" placeholder="First Name">
+		      		<input type="text" placeholder="First Name" name="first">
 		    	</div>
-		    	
-		    	<div class="one wide field">
-		    		<label>Middle</label>
-		    		<input type="text" placeholder="M">
-		    	</div>
-		    	
+
+
 		    	<div class="four wide field">
 		    		<label>Last Name</label>
-		    		<input type="text" placeholder="Last Name">
+		    		<input type="text" placeholder="Last Name" name="last">
 		    	</div>
-		    	
+
 		    	<div class="two wide field">
 		    		<label>Sex</label>
 		    		<select class="ui search dropdown" Placeholder="Sex" name="sex">
@@ -67,21 +64,70 @@
 		    			<option value="f">Female</option>
 		    		</select>
 		    	</div>
-		    	
+
 		    	<div class="four wide field">
 		      		<label>School ID</label>
-		      		<input type="text" placeholder="ID #">
+		      		<input type="text" placeholder="ID #" name="id">
 		    	</div>
-		    	
-  			</div>
-		</div>
-		
-	</div>
+
+		    	<div class="two wide field">
+		    		<label>Go!</label>
+		    		<button class="ui icon fluid green button">
+  						<i class="checkmark inverted icon"></i>
+					</button>
+		    	</div>
+
+  			</div> <!--end fields -->
+		</div> <!-- end ui form -->
+		</form>
+	</div> <!--end ui violet secondary segment-->
+
+
+
+	<!--ADD ASSIGNMENT SECTION-->
+  	<h3 class="ui horizontal divider section header">Add Assignment</h3>
+  	<form action="/" method="">
+  	<div class="ui red secondary segment" id="addStudentSection">
+
+		<div class="ui form">
+			<div class="fields">
+				<div class="three wide field">
+		      		<label>Assignment Name</label>
+		      		<input type="text" placeholder="Assignment" name="name">
+		    	</div>
+
+
+		    	<div class="nine wide field">
+		    		<label>Description</label>
+		    		<input type="text" placeholder="Last Name" name="last">
+		    	</div>
+
+		    	<div class="three wide field">
+		    		<label>Add To:</label>
+		    		<select class="ui search dropdown" Placeholder="Add to.." name="addTo">
+		    			<option value="all">All Students</option>
+		    			<% for(var temp in students){%>
+							<option value="<%=students[temp].studentName%>"><%=students[temp].studentName%></option>
+						<% } %>
+		    		</select>
+		    	</div>
+
+		    	<div class="one wide field">
+		    		<label>Go!</label>
+		    		<button class="ui icon fluid green button">
+  						<i class="checkmark inverted icon"></i>
+					</button>
+		    	</div>
+
+  			</div> <!--end fields -->
+		</div> <!-- end ui form -->
+		</form>
+	</div> <!--end ui violet secondary segment-->
 
 
 
 
 
-	
+
 </div> <!-- End main body ui container div -->
 <% include partials/footer %>

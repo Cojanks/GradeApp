@@ -5,7 +5,7 @@ var Assignment = require("./models/assignment");
 var data = {
 	students:{
 		7788004: {
-			studentName: 'Corey Jenkins',
+			studentName: 'Cade Johnston',
 			studentID: 7788004,
 			studentSex: 'm',
 			studentAssignments:[
@@ -26,9 +26,9 @@ var data = {
 					assignmentID: 3
 				}
 			] // individual assignments
-		}, // end individual student 
+		}, // end individual student
 		4562201: {
-			studentName: 'Dave Sweeney',
+			studentName: 'Dave Schwifty',
 			studentID: 4562201,
 			studentSex: 'm',
 			studentAssignments:[
@@ -50,7 +50,7 @@ var data = {
 			] // individual assignments
 		}, // end individual student
 			765812: {
-			studentName: 'Mark Dorf',
+			studentName: 'Mark Donalds',
 			studentID: 765812,
 			studentSex: 'm',
 			studentAssignments:[
@@ -71,9 +71,9 @@ var data = {
 					assignmentID: 3
 				}
 			] // individual assignments
-		}, // end individual student 
+		}, // end individual student
 		7688831: {
-			studentName: 'Maia Harms',
+			studentName: 'Maia Harity',
 			studentID: 7688831,
 			studentSex: 'f',
 			studentAssignments:[
@@ -97,7 +97,7 @@ var data = {
 		}
 	}, // students
 	assignments: {
-		1:{	// The names for each of these objects will be used as the ID reference number/ID 
+		1:{	// The names for each of these objects will be used as the ID reference number/ID
 			assignmentName: 'Math Homework 1',
 			assignmentDescription: 'Calculus',
 			studentGrades: {	//uses student IDs
@@ -144,10 +144,10 @@ function seedDB(){
             		if(err){ console.log(err) }
             	});
             } // end for (prop in data.students)
-            // console.log(data.students); // Used for testing 
+            // console.log(data.students); // Used for testing
         }
     }); //end Student.remove
-    
+
     Assignment.remove({}, function(err){
     	if(err){
     		console.log(err);
@@ -158,7 +158,7 @@ function seedDB(){
     				if(err){ console.log(err) }
     			});
     		} //end for for(prop in data.assignments)
-            // console.log(data.assignments); // Used for testing 
+            // console.log(data.assignments); // Used for testing
     	}
     }); //end assignment.remove
 }

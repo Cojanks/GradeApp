@@ -6,14 +6,14 @@ var express                     = require("express"),
     Assignment                  = require("./models/assignment"),
     seedDB                      = require("./seeds"),
     mongoose                    = require("mongoose");
-    
+
 mongoose.connect("mongodb://localhost/grade");
 
 app.set("view engine", "ejs");
-app.use(express.static("public"));
+app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({extended: true}));
-app.use(methodOverride("_method")); 
-seedDB(); 
+app.use(methodOverride("_method"));
+seedDB();
 
 // Index and show (students) route
 app.get("/", function(req, res){
@@ -27,7 +27,32 @@ app.get("/", function(req, res){
 });
 
 // Create Route
+app.post("/", function(req, res){
+    //Get data from inputs
+    var name = req.body.first + ' ' + req.body.last;
+    var sex = req.body.sex;
+    var id = req.body.id;
+    // create new student and save to DB
+    var newStudent = {studentName: name, studentSex: sex, studentID: id};
+    Student.create(newStudent, function(err, newlyCreated){
+        if(err){
+            console.log(err);
+        }else{
+             res.redirect("/");
+        }
+    });
+    //redirect back to index
+});
 
+// app.get("/student/:id", function(req, res){
+//     Student.find({}, function(err, foundStudent){
+//         if(err){
+//             console.log(err)
+//         }else{
+//             res.render("student", {student: foundStudent});
+//         }
+//     });
+// });
 
 
 

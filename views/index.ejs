@@ -26,28 +26,29 @@
 <!-- Tab content -->
 	<!-- Add Course content -->
 		<div class="ui bottom attached active tab segment" data-tab="addCourse">
-			<div class="ui red secondary segment topbottom">
-		      <h3 class="ui horizontal divider section header">Add Class / Period</h3>
-				<div class="ui form">
+			<form action="/course/new" method="POST"> 
+				<div class="ui red secondary segment topbottom">
+			      <h3 class="ui horizontal divider section header">Add Class / Period</h3>
+					<div class="ui form">
 
-					<div class="fields">
-						<div class="ten wide field">
-				      		<label>Class Name</label>
-				      		<input type="text" placeholder="Class Name - Ex: 'Mrs. Jones 1st period Study of Texas History Class" name="className">
-				    	</div>
+						<div class="fields">
+							<div class="ten wide field">
+					      		<label>Class Name</label>
+					      		<input type="text" placeholder="Class Name - Ex: 'Mrs. Jones 1st period Study of Texas History Class" name="className">
+					    	</div>
 
-				    	<div class="six wide field">
-				    		<label>Personal Class Nickname</label>
-				    		<input type="text" placeholder="Ex: '1st Period' or 'Tex Hist'" name="classNickname">
-				    	</div>
-		  			</div> <!--end fields -->
-		  			
-		  			<div class="field">
-		                <label>Class description</label>
-		                <textarea rows="6" placeholder="The official summary or syllabus of the class. Feel free to leave things like objectives and other information important about the class to parents here."></textarea>
-		         </div>  <!--end field -->
+					    	<div class="six wide field">
+					    		<label>Personal Class Nickname</label>
+					    		<input type="text" placeholder="Ex: '1st Period' or 'Tex Hist'" name="classNickname">
+					    	</div>
+			  			</div> <!--end fields -->
+			  			
+			  			<div class="field">
+			                <label>Class description</label>
+			                <textarea rows="6" name="classDesc" placeholder="The official summary or syllabus of the class. Feel free to leave things like objectives and other information important about the class to parents here."></textarea>
+			         </div>  <!--end field -->
 
-				</div> <!-- end ui form -->
+					</div> <!-- end ui form -->
 				</form>			
 		      <p><strong>*NOTE: Parents will see the Class Name and Description. However, the nickname is for you to organize and will not be seen by parents</strong></p>	         			       
 			   <button class="fluid green ui button">Create class</button>    
@@ -59,6 +60,80 @@
 
 		<% for(var p=0; p<courses.length; p++){%>
 			<div class="ui bottom attached tab segment" data-tab="<%= courses[p]['courseNickname'] %>">
+
+				<h3 class="ui horizontal divider section header"><%= courses[p]['courseName'] %></h3>
+				<div class="ui blue segment">
+					<div class="ui divided relaxed selection list studentList middle aligned">
+
+						<!-- LIST OF STUDENTS ADDED HERE -->
+
+							<% for(var s=0; s < courses[p]['courseStudents'].length; s++){%>
+								<a class='item' href="/student/<%=courses[p].courseStudents[s]._id%>">
+									<div class='right floated middle aligned content'>
+										<div class='student_gradeAvg'>
+											<%= courses[p].courseStudents[s].studentAverage%>
+										</div>
+									</div>
+									<% if(courses[p].courseStudents[s]['studentSex'] === 'f'){ %>
+										<i class="circular female purple icon middle aligned fitted"></i>
+									<% }else if(courses[p].courseStudents[s]['studentSex'] === 'm'){ %>
+										<i class="bordered male violet icon middle aligned fitted"></i>
+									<% } %>
+									<div class='middle aligned content'>
+										<div class='header student_name'><%= courses[p].courseStudents[s]['studentName'] %></div>
+										<div class='student_id'>(<%= courses[p]['courseStudents'][s]['studentID'] %>)</div>
+
+									</div>
+								</a>
+							<% } %>							
+				  	</div> <!-- divided relaxed list studentList -->
+				</div>
+
+				<!--ADD STUDENT SECTION-->
+			  	<h3 class="ui horizontal divider section header">Add Student to <%= courses[p]['courseName']%>%></h3>
+			  	<form action="/course/<%=courses[p]._id%>/student/new" method="POST">
+			  	<div class="ui violet secondary segment" id="addStudentSection">
+			  		
+					<div class="ui form">
+						<div class="fields">
+							<div class="four wide field">
+					      		<label>First Name</label>
+					      		<input type="text" placeholder="First Name" name="first">
+					    	</div>
+					    	
+					    	<div class="four wide field">
+					    		<label>Last Name</label>
+					    		<input type="text" placeholder="Last Name" name="last">
+					    	</div>
+					    	
+					    	<div class="two wide field">
+					    		<label>Sex</label>
+					    		<select class="ui search dropdown" Placeholder="Sex" name="sex">
+					    			<option value="m">Male</option>
+					    			<option value="f">Female</option>
+					    		</select>
+					    	</div>
+					    	
+					    	<div class="four wide field">
+					      		<label>School ID</label>
+					      		<input type="text" placeholder="ID #" name="inputid">
+					    	</div>
+					    	
+					    	<div class="two wide field">
+					    		<label>Go!</label>
+					    		<button class="ui icon fluid green button">
+			  						<i class="checkmark inverted icon"></i>
+								</button>
+					    	</div>
+					    	
+			  			</div> <!--end fields -->
+					</div> <!-- end ui form -->
+					</form>
+				</div> <!--end ui violet secondary segment-->
+
+
+
+
 			</div> 
 		<% } %>
 

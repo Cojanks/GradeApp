@@ -12,16 +12,16 @@ var studentSchema = new Schema({
     }]
 });
 
-// studentSchema.virtual('studentAverage').get(function (){
-//      var total = 0;
-//     if(this.studentAssignments.length>0){
-//     	this.studentAssignments.forEach(function(obj){
-//     		total += obj.assignmantGrade;
-//     	});
-//     return (total/this.studentAssignments.length).toFixed(2);
-//  	}
-// 	  return total;
-// });
+studentSchema.virtual('studentAverage').get(function (){
+     var total = 0;
+    if(this.studentAssignments.length>0){
+    	this.studentAssignments.forEach(function(obj){
+    		total += obj.assignmantGrade;
+    	});
+    return (total/this.studentAssignments.length).toFixed(2);
+ 	}
+	  return total;
+});
 
 const Student = mongoose.model("student", studentSchema);
 module.exports = Student;

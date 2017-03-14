@@ -51,7 +51,39 @@ var data2 =[
 		studentAssignments:[
 			
 		] // individual assignments
-	} // end individual student 
+	}, // end individual student
+	{
+		studentName: 'Patrick Racheff',
+		studentID: 7993650,
+		studentSex: 'm',
+		studentAssignments:[
+			
+		] // individual assignments
+	}, // end individual student 
+	{
+		studentName: 'Marc August',
+		studentID: 2234908,
+		studentSex: 'f',
+		studentAssignments:[
+			
+		] // individual assignments
+	}, // end individual student
+	{
+		studentName: 'Vytenis Krukonis',
+		studentID: 3132671,
+		studentSex: 'm',
+		studentAssignments:[
+			
+		] // individual assignments
+	}, // end individual student 
+	{
+		studentName: 'Alex Flannery',
+		studentID: 2547089,
+		studentSex: 'f',
+		studentAssignments:[
+			
+		] // individual assignments
+	} 
 ]
 
 
@@ -100,7 +132,7 @@ function seedDB(){
                	});
                   // course.save()
                } //end else
-              
+
          	}); //end course.create
          }); //end data.forEach
          console.log("Courses Seeded");

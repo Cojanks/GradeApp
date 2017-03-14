@@ -11,11 +11,12 @@ var express         = require("express"),
     mongoose        = require("mongoose");
 
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+
 mongoose.connect("mongodb://localhost/grade");
 app.set("view engine", "ejs");
-app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride("_method")); 
+app.use(express.static(__dirname + '/public'));
 seedDB();
 
 
@@ -29,24 +30,74 @@ app.get("/", function(req, res){
     });
 });
 
-// Create Route
-app.post("/", function(req, res){
+app.post("/course/new", function(req, res){
+    var className = req.body.className;
+    var classNickname = req.body.classNickname;
+    var classDesc = req.body.classDesc;
+    var newCourse = {courseName: className, courseDescription: classDesc, courseNickname: classNickname};
+    console.log(newCourse)
+    Course.create(newCourse, function(err, newlyCreatedCourse){
+        if(err){
+            console.log(err);
+        }else{
+            console.log(newlyCreatedCourse);
+            res.redirect("/");
+        };
+    });
+});
+
+app.post("/course/:id/student/new", function(req,res){
+    var name = req.body.first + ' ' + req.body.last;
+    var sex = req.body.sex;
+    var studentid = req.body.inputid;
+    // create new student and save to DB
+    var newStudent = {studentName: name, studentSex: sex, studentID: studentid};
+    Course.findById(req.params.id, function(err, foundCourse){
+        if(err){
+            console.log(err)
+        }else{
+            Student.create(newStudent, function(err, newlyCreated){
+                if(err){
+                    console.log(err);
+                }else{
+                    foundCourse.courseStudents.push(newlyCreated);
+                    res.redirect("/");
+                }
+            foundCourse.save()
+            }); // end Student.findById
+        }
+    }) //end Course.findByID    
+});
+
+
+
+
+
+
+
+
+
+
+// Create student in class Route
+app.post("/course/:id", function(req, res){
     //Get data from inputs
     var name = req.body.first + ' ' + req.body.last;
     var sex = req.body.sex;
     var id = req.body.inputid;
     // create new student and save to DB
     var newStudent = {studentName: name, studentSex: sex, studentID: id};
+
     Student.create(newStudent, function(err, newlyCreated){
         if(err){
             console.log(err);
         }else{
-             res.redirect("/");
+            res.send("Post request - add student to class")
+             //res.redirect("/");
         }
     });
 });
 
-app.get("/student/:id", function(req, res){
+app.get("/coursestudent/:id", function(req, res){
     Student.findById(req.params.id, function(err, foundStudent){
         if(err){
             console.log(err);

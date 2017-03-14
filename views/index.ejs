@@ -1,133 +1,73 @@
 <% include partials/header %>
 
 <div class="ui container">
-
 	<h2 class="ui center aligned icon header">
   		<i class="circular book icon"></i>
-  		Mr. Jenkins 5th Period Class
+  		Mr. Jenkins Classes
+  		<!-- need to add ejs to add course name when clicking on different tabs -->
 	</h2>
 
-	<!-- STUDENTS SECTION -->
-	<h3 class="ui horizontal divider section header">Class List</h3>
-	<div class="ui blue segment">
-		<div class="ui divided relaxed selection list studentList middle aligned">
-
-			<!-- LIST OF STUDENTS ADDED HERE -->
-
-				<% for(var prop in students){%>
-					<a class='item' href="/student/<%=students[prop]._id%>">
-						<div class='right floated middle aligned content'>
-							<div class='student_gradeAvg'>
-								<strong><%= students[prop].studentAverage%></strong>
-							</div>
-						</div>
-						<% if(students[prop].studentSex === 'f'){ %>
-							<i class="circular female purple icon middle aligned fitted"></i>
-						<% }else if(students[prop].studentSex === 'm'){ %>
-							<i class="bordered male violet icon middle aligned fitted"></i>
-						<% } %>
-						<div class='middle aligned content'>
-							<div class='header student_name'><%= students[prop].studentName %></div>
-							<div class='student_id'>(<%= students[prop].studentID %>)</div>
-
-						</div>
-					</a>
-				<% } %>
 
 
+<!---->
+<!-- Tab naming -->
+	<div class="ui top attached tabular menu addCourseTabs">
 
-	  	</div> <!-- divided relaxed list studentList -->
+	<!-- Add course tab  -->
+		<a class="active item" data-tab="addCourse">Add Class</a>
+
+	<!-- Iteration logic for tab naming -->
+		<% for(var i=0; i<courses.length; i++){%>
+			<a class="item" data-tab="<%= courses[i]['courseNickname']%>"><%= courses[i]['courseNickname'] %></a>
+		<% } %>
 	</div>
 
-	<!--ADD STUDENT SECTION-->
-  	<h3 class="ui horizontal divider section header">Add Student</h3>
-  	<form action="/" method="POST">
-  	<div class="ui violet secondary segment" id="addStudentSection">
+<!---->
+<!-- Tab content -->
+	<!-- Add Course content -->
+		<div class="ui bottom attached active tab segment" data-tab="addCourse">
+			<div class="ui red secondary segment topbottom">
+		      <h3 class="ui horizontal divider section header">Add Class / Period</h3>
+				<div class="ui form">
 
-		<div class="ui form">
-			<div class="fields">
-				<div class="four wide field">
-		      		<label>First Name</label>
-		      		<input type="text" placeholder="First Name" name="first">
-		    	</div>
+					<div class="fields">
+						<div class="ten wide field">
+				      		<label>Class Name</label>
+				      		<input type="text" placeholder="Class Name - Ex: 'Mrs. Jones 1st period Study of Texas History Class" name="className">
+				    	</div>
 
+				    	<div class="six wide field">
+				    		<label>Personal Class Nickname</label>
+				    		<input type="text" placeholder="Ex: '1st Period' or 'Tex Hist'" name="classNickname">
+				    	</div>
+		  			</div> <!--end fields -->
+		  			
+		  			<div class="field">
+		                <label>Class description</label>
+		                <textarea rows="6" placeholder="The official summary or syllabus of the class. Feel free to leave things like objectives and other information important about the class to parents here."></textarea>
+		         </div>  <!--end field -->
 
-		    	<div class="four wide field">
-		    		<label>Last Name</label>
-		    		<input type="text" placeholder="Last Name" name="last">
-		    	</div>
+				</div> <!-- end ui form -->
+				</form>			
+		      <p><strong>*NOTE: Parents will see the Class Name and Description. However, the nickname is for you to organize and will not be seen by parents</strong></p>	         			       
+			   <button class="fluid green ui button">Create class</button>    
+			</div> <!--end ui red secondary segments-->
+		</div> <!-- END data-tab="addCourse" -->
 
-		    	<div class="two wide field">
-		    		<label>Sex</label>
-		    		<select class="ui search dropdown" Placeholder="Sex" name="sex">
-		    			<option value="m">Male</option>
-		    			<option value="f">Female</option>
-		    		</select>
-		    	</div>
+	<!-- Iteration log for Tabs -->
+		
 
-		    	<div class="four wide field">
-		      		<label>School ID</label>
-		      		<input type="text" placeholder="ID #" name="id">
-		    	</div>
-
-		    	<div class="two wide field">
-		    		<label>Go!</label>
-		    		<button class="ui icon fluid green button">
-  						<i class="checkmark inverted icon"></i>
-					</button>
-		    	</div>
-
-  			</div> <!--end fields -->
-		</div> <!-- end ui form -->
-		</form>
-	</div> <!--end ui violet secondary segment-->
+		<% for(var p=0; p<courses.length; p++){%>
+			<div class="ui bottom attached tab segment" data-tab="<%= courses[p]['courseNickname'] %>">
+			</div> 
+		<% } %>
 
 
-
-	<!--ADD ASSIGNMENT SECTION-->
-  	<h3 class="ui horizontal divider section header">Add Assignment</h3>
-  	<form action="/" method="">
-  	<div class="ui red secondary segment" id="addStudentSection">
-
-		<div class="ui form">
-			<div class="fields">
-				<div class="three wide field">
-		      		<label>Assignment Name</label>
-		      		<input type="text" placeholder="Assignment" name="name">
-		    	</div>
-
-
-		    	<div class="nine wide field">
-		    		<label>Description</label>
-		    		<input type="text" placeholder="Last Name" name="last">
-		    	</div>
-
-		    	<div class="three wide field">
-		    		<label>Add To:</label>
-		    		<select class="ui search dropdown" Placeholder="Add to.." name="addTo">
-		    			<option value="all">All Students</option>
-		    			<% for(var temp in students){%>
-							<option value="<%=students[temp].studentName%>"><%=students[temp].studentName%></option>
-						<% } %>
-		    		</select>
-		    	</div>
-
-		    	<div class="one wide field">
-		    		<label>Go!</label>
-		    		<button class="ui icon fluid green button">
-  						<i class="checkmark inverted icon"></i>
-					</button>
-		    	</div>
-
-  			</div> <!--end fields -->
-		</div> <!-- end ui form -->
-		</form>
-	</div> <!--end ui violet secondary segment-->
+	
 
 
 
 
-
-
+	
 </div> <!-- End main body ui container div -->
 <% include partials/footer %>

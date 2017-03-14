@@ -1,9 +1,10 @@
 var mongoose = require("mongoose");
+var Schema = mongoose.Schema;
 
-
-var assignmentSchema = new mongoose.Schema({
+var assignmentSchema = new Schema({
     assignmentName: String,
     assignmentDescription: String,
-    studentGrades: {}
+    assignmentGade: Number
 });
-module.exports =  mongoose.model("Assignment", assignmentSchema);
+const Assignment = mongoose.model("assignment", assignmentSchema);
+module.exports = Assignment;

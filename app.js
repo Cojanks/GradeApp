@@ -1,28 +1,31 @@
-var express                     = require("express"),
-    app                         = express(),
-    bodyParser                  = require("body-parser"),
-    methodOverride              = require('method-override'),
-    Student                     = require("./models/student"),
-    Assignment                  = require("./models/assignment"),
-    seedDB                      = require("./seeds"),
-    mongoose                    = require("mongoose");
+var express         = require("express"),
+    app             = express(),
+    bodyParser      = require("body-parser"),
+    methodOverride  = require('method-override'),
+    Student         = require("./models/student"),
+    Course          = require("./models/course"),
+    Assignment      = require("./models/assignment"),
+    seedDB          = require("./seeds"),
+    favicon         = require('serve-favicon'),
+    path            = require('path'),
+    mongoose        = require("mongoose");
 
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 mongoose.connect("mongodb://localhost/grade");
-
 app.set("view engine", "ejs");
-app.use(express.static(__dirname + '/public'));
+app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: true}));
-app.use(methodOverride("_method"));
+app.use(methodOverride("_method")); 
 seedDB();
 
-// Index and show (students) route
+
+// Index 
 app.get("/", function(req, res){
-    Student.find({}, function(err, allStudents){
-        if(err){
-            console.log(err);
-        }else{
-            res.render("index", {students: allStudents});
-        }
+    Course.find().populate('courseStudents').exec(function(err, courses){
+        //This will populate the students in each class (meaning that information will be sent into the ejs file). res.send(courses) to see what I mean. 
+        // THE INDEX IS CURRENTLY BROKEN BECAUSE OF THIS HOWEVER (much of the logic in the index is based off the OLD res.render): //res.render("index", {students: allStudents, courses: allCourses});
+        // res.send(courses)
+        res.render("index", {courses: courses});
     });
 });
 
@@ -31,7 +34,7 @@ app.post("/", function(req, res){
     //Get data from inputs
     var name = req.body.first + ' ' + req.body.last;
     var sex = req.body.sex;
-    var id = req.body.id;
+    var id = req.body.inputid;
     // create new student and save to DB
     var newStudent = {studentName: name, studentSex: sex, studentID: id};
     Student.create(newStudent, function(err, newlyCreated){
@@ -41,24 +44,17 @@ app.post("/", function(req, res){
              res.redirect("/");
         }
     });
-    //redirect back to index
 });
 
-// app.get("/student/:id", function(req, res){
-//     Student.find({}, function(err, foundStudent){
-//         if(err){
-//             console.log(err)
-//         }else{
-//             res.render("student", {student: foundStudent});
-//         }
-//     });
-// });
-
-
-
-// app.listen(process.env.PORT, process.env.IP, function(){
-//     console.log("Grade app running");
-// });
+app.get("/student/:id", function(req, res){
+    Student.findById(req.params.id, function(err, foundStudent){
+        if(err){
+            console.log(err);
+        }else{
+            res.render("student", {student: foundStudent});
+        }
+    });
+});
 
 app.listen(3000, function () {
   console.log('Grade App is running');

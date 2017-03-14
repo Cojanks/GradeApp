@@ -5,8 +5,53 @@
   		<i class="circular book icon"></i>
   		Mr. Jenkins 5th Period Class
 	</h2>
+	
+	<h2 class="ui horizontal divider section header"><%= student.studentName %></h2>
+	
+	<div class="ui teal segment">
+	    
+        <div class="ui horizontal divider section header" href="/">Assignments</div>
+        <div class="ui divided relaxed  list studentList middle aligned">
+	            <% for(var i=0; i< student.studentAssignments.length; i++){%>
+	                <div class="item">
+						<div class='right floated middle aligned content'>
+							<div>
+								<strong><%= student.studentAssignments[i].assignmantGrade%></strong>
+							</div>
+						</div>
+						<% if(student.studentAssignments[i].assignmantGrade <= 59){ %>
+							<i class="small circular red inverted icon middle aligned fitted" style="font-family: 'Lato', sans-serif !important;">F</i>
+						<% }else if(student.studentAssignments[i].assignmantGrade <= 63){ %>
+							<i class="small circular orange icon middle aligned fitted" style="font-family: 'Lato', sans-serif !important;">D-</i>
+						<% }else if(student.studentAssignments[i].assignmantGrade <= 67){ %>
+							<i class="small circular orange icon middle aligned fitted" style="font-family: 'Lato', sans-serif !important;">D</i>
+						<% }else if(student.studentAssignments[i].assignmantGrade <= 69){ %>
+							<i class="small circular orange icon middle aligned fitted" style="font-family: 'Lato', sans-serif !important;">D+</i>
+						<% }else if(student.studentAssignments[i].assignmantGrade <= 73){ %>
+							<i class="small circular icon middle aligned fitted" style="font-family: 'Lato', sans-serif !important;">C-</i>
+						<% }else if(student.studentAssignments[i].assignmantGrade <= 77){ %>
+							<i class="small circular icon middle aligned fitted" style="font-family: 'Lato', sans-serif !important;">C</i>
+						<% }else if(student.studentAssignments[i].assignmantGrade <= 79){ %>
+							<i class="small circular icon middle aligned fitted" style="font-family: 'Lato', sans-serif !important;">C+</i>
+						<% }else if(student.studentAssignments[i].assignmantGrade <= 83){ %>
+							<i class="small circular blue icon middle aligned fitted" style="font-family: 'Lato', sans-serif !important;">B-</i>
+						<% }else if(student.studentAssignments[i].assignmantGrade <= 87){ %>
+							<i class="small circular blue icon middle aligned fitted" style="font-family: 'Lato', sans-serif !important;">B</i>
+						<% }else if(student.studentAssignments[i].assignmantGrade <= 89){ %>
+							<i class="small circular blue icon middle aligned fitted" style="font-family: 'Lato', sans-serif !important;">B+</i>
+						<% }else if(student.studentAssignments[i].assignmantGrade <= 93){ %>
+							<i class="small circular green inverted icon middle aligned fitted" style="font-family: 'Lato', sans-serif !important;">A-</i>
+						<% }else{ %>
+							<i class="small circular green inverted icon middle aligned fitted" style="font-family: 'Lato', sans-serif !important;">A</i>
+						<% } %>
+						<div class='middle aligned content'>
+							<div class='header student_name'><%= student.studentAssignments[i].assignmentName %></div>
+						</div>
+					</div>
+				<% } %>
+	    </div>
+    </div>
 
-	<h3 class="ui horizontal divider section header"> </h3>
 
 
 
@@ -14,9 +59,8 @@
 
 
 
-
-
-
-
+    <div class="ui bottom fixed">
+        <a class="ui horizontal divider section header" href="/">Go Back</a>
+    </div>
 </div> <!-- End main body ui container div -->
 <% include partials/footer %>

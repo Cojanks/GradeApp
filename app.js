@@ -118,13 +118,9 @@ app.post("/course/:id/assignment/new", function(req, res){
 });
 
 // Show student - GET / SHOW - **NOT WORKING CURRENTLY**
-app.get("/coursestudent/:id", function(req, res){
-    Student.findById(req.params.id, function(err, foundStudent){
-        if(err){
-            console.log(err);
-        }else{
-            res.render("student", {student: foundStudent});
-        }
+app.get("/student/:id", function(req, res){
+    Student.findById(req.params.id).populate('studentAssignments').exec(function(err, foundStudent){
+        res.render("student", {student: foundStudent});
     });
 });
 

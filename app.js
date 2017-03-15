@@ -11,14 +11,13 @@ var express         = require("express"),
     mongoose        = require("mongoose");
 
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-
 mongoose.connect("mongodb://localhost/grade");
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride("_method")); 
-app.use(express.static(__dirname + '/public'));
-seedDB();
-
+app.use(express.static(__dirname + '/public/'));
+seedDB.seedDB();
+//seedDB.removeDataFromDB();
 
 // Index 
 app.get("/", function(req, res){
@@ -30,22 +29,22 @@ app.get("/", function(req, res){
     });
 });
 
+//Create new course - POST
 app.post("/course/new", function(req, res){
     var className = req.body.className;
     var classNickname = req.body.classNickname;
     var classDesc = req.body.classDesc;
     var newCourse = {courseName: className, courseDescription: classDesc, courseNickname: classNickname};
-    console.log(newCourse)
     Course.create(newCourse, function(err, newlyCreatedCourse){
         if(err){
             console.log(err);
         }else{
-            console.log(newlyCreatedCourse);
             res.redirect("/");
         };
     });
 });
 
+//Create new Student within Course - POST
 app.post("/course/:id/student/new", function(req,res){
     var name = req.body.first + ' ' + req.body.last;
     var sex = req.body.sex;
@@ -69,34 +68,55 @@ app.post("/course/:id/student/new", function(req,res){
     }) //end Course.findByID    
 });
 
+//Create Assignment within Course
+app.post("/course/:id/assignment/new", function(req, res){
+    var courseOfStudent = req.params.id
+    var assignmentName = req.body.assignmentName;
+    var assignmentDesc = req.body.assignmentDesc;
+    var addToStudent_Id = req.body.addTo;
+    var newAssignment = {assignmentName: assignmentName, assignmentDescription: assignmentDesc};
 
-
-
-
-
-
-
-
-
-// Create student in class Route
-app.post("/course/:id", function(req, res){
-    //Get data from inputs
-    var name = req.body.first + ' ' + req.body.last;
-    var sex = req.body.sex;
-    var id = req.body.inputid;
-    // create new student and save to DB
-    var newStudent = {studentName: name, studentSex: sex, studentID: id};
-
-    Student.create(newStudent, function(err, newlyCreated){
-        if(err){
+    if(addToStudent_Id !== "all"){
+        Student.findById(addToStudent_Id, function(err, foundStudentByID){
+            if(err){
             console.log(err);
-        }else{
-            res.send("Post request - add student to class")
-             //res.redirect("/");
-        }
-    });
+            }else{
+                Assignment.create(newAssignment, function(err, newlyCreatedAssignment){
+                    if(err){
+                        console.log(err);
+                    }else{
+                        newlyCreatedAssignment.save();
+                        foundStudentByID.studentAssignments.push(newlyCreatedAssignment);
+                        foundStudentByID.save();
+                    }
+                }); // end assignment.create  
+            }           
+        }); // end student.findbyid
+    }else{
+        Course.findById(courseOfStudent, function(err, foundParticularCourse){
+            if(err){
+                console.log(err);
+            }else{
+                Assignment.create(newAssignment, function(err, newlyCreatedAssignment2){
+                    if(err){
+                        console.log(err);
+                    }else{
+                        newlyCreatedAssignment2.save();
+                        foundParticularCourse.courseStudents.forEach(function(obj){
+                            Student.findById(obj, function(err, foundStudentByID2){
+                                foundStudentByID2.studentAssignments.push(newlyCreatedAssignment2);
+                                foundStudentByID2.save();
+                            })
+                        });
+                    }
+                }); //end assignment.create
+            }
+        });//end course.find
+        //res.redirect("/");
+    };
 });
 
+// Show student - GET / SHOW - **NOT WORKING CURRENTLY**
 app.get("/coursestudent/:id", function(req, res){
     Student.findById(req.params.id, function(err, foundStudent){
         if(err){

@@ -86,102 +86,73 @@ var data2 =[
 	} 
 ]
 
+function removeDataFromDB(){
+	Student.remove({}, function(err) { 
+   	if(err){
+         console.log(err);
+      }else{
+	   	console.log("Students Removed!");
+	   }
+	});
+	 Course.remove({}, function(err){
+      if(err){
+         console.log(err);
+      }else{
+         console.log("Courses Removed!!")
+      }
+   });
+	 Assignment.remove({}, function(err){
+      if(err){
+         console.log(err);
+      }else{
+         console.log("Assignments Removed!!!")
+      }
+   });
 
+
+}
 
 
 
 function seedDB(){
+	removeDataFromDB();
 
-   Student.remove({}, function(err) { 
-   	if(err){
-         console.log(err);
-      }else{
-	   	console.log('Students Removed');
-	   	data2.forEach(function(obj2){
-	         	Student.create(obj2, function(err, student){
-	         		if(err){
-	                  console.log(err);
-	               }else{
-	                  student.save();
-	               } //end else
-	         	}); //end student.create
-	         }); //end data2.forEach
-	   	console.log("Students seeded");
-	   } // End else
-	});
+	data2.forEach(function(obj2){
+      	Student.create(obj2, function(err, student){
+      		if(err){
+               console.log(err);
+            }else{
+               student.save();
+            } //end else
+      	}); //end student.create
+      }); //end data2.forEach
+	console.log("Students seeded");
 
-   Course.remove({}, function(err){    //the empty {} means it will remove all
-      if(err){
-         console.log(err);
-      }else{
-         console.log("Clearing All Courses")
-         data.forEach(function(obj, i){
-         	Course.create(obj, function(err, course){
+   data.forEach(function(obj, i){
+   	Course.create(obj, function(err, course){
+   		if(err){
+            console.log(err);
+         }else{
+         	Student.find({},function(err, students){
          		if(err){
-                  console.log(err);
-               }else{
-               	Student.find({},function(err, students){
-               		if(err){
-               			console.log(err)
-               		}else{
-               			students.forEach(function(eachStudent){
-               				course.courseStudents.push(eachStudent._id);
-               			});
-               		}
-               		course.save()
-               	});
-                  // course.save()
-               } //end else
-
-         	}); //end course.create
-         }); //end data.forEach
-         console.log("Courses Seeded");
-      } // end else
-   }); //end course.remove
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   // This works, adds courses with proper info
-   // Course.remove({}, function(err){    //the empty {} means it will remove all
-   //    if(err){
-   //       console.log(err);
-   //    }else{
-   //       console.log("Clearing All Courses")
-   //       data.forEach(function(obj, i){
-   //       	Course.create(obj, function(err, course){
-   //       		if(err){
-   //                console.log(err);
-   //             }else{
-   //                console.log(course)
-   //                course.save()
-   //             } //end else
-   //       	}); //end course.create
-   //       }); //end data.forEach
-   //    } // end else
-   // }); //end course.remove
-    
+         			console.log(err)
+         		}else{
+         			students.forEach(function(eachStudent){
+         				course.courseStudents.push(eachStudent._id);
+         			});
+         		}
+         		course.save()
+         	}); //end student.find
+         }
+   	}); //end course.create
+   }); //end data.forEach
+   console.log("Courses Seeded");
 
 } //End seedDB()
-module.exports = seedDB;
+
+
+
+module.exports = {
+	seedDB,
+	removeDataFromDB
+};

@@ -45,7 +45,7 @@
 			  			
 			  			<div class="field">
 			                <label>Class description</label>
-			                <textarea rows="6" name="classDesc" placeholder="The official summary or syllabus of the class. Feel free to leave things like objectives and other information important about the class to parents here."></textarea>
+			                <textarea rows="6" name="classDesc" placeholder="The official summary or syllabus of the class. Feel free to leave things like objectives and other information which would be important to parents about the class here."></textarea>
 			         </div>  <!--end field -->
 
 					</div> <!-- end ui form -->
@@ -128,13 +128,50 @@
 					    	
 			  			</div> <!--end fields -->
 					</div> <!-- end ui form -->
-					</form>
+				</form>
 				</div> <!--end ui violet secondary segment-->
 
+				<h3 class="ui horizontal divider section header">Add Assignment</h3>
+			  	<form action="/course/<%=courses[p]._id%>/assignment/new" method="POST">
+			  	<div class="ui red secondary segment" id="addStudentSection">
+
+					<div class="ui form">
+						<div class="fields">
+							<div class="three wide field">
+					      		<label>Assignment Name</label>
+					      		<input type="text" placeholder="Assignment" name="assignmentName">
+					    	</div>
 
 
+					    	<div class="nine wide field">
+					    		<label>Description</label>
+					    		<input type="text" placeholder="Last Name" name="assignmentDesc">
+					    	</div>
 
-			</div> 
+					    	<div class="three wide field">
+					    		<label>Add To:</label>
+					    		<select class="ui search dropdown" Placeholder="Add to.." name="addTo">
+					    			<option value="all">All Students</option>
+					    			<% for(var r=0; r < courses[p]['courseStudents'].length; r++){%>
+										<option value="<%=courses[p]['courseStudents'][r]._id%>"><%=courses[p]['courseStudents'][r].studentName%></option>
+									<% } %>
+					    		</select>
+					    	</div>
+
+					    	<div class="one wide field">
+					    		<label>Go!</label>
+					    		<button class="ui icon fluid green button">
+			  						<i class="checkmark inverted icon"></i>
+								</button>
+					    	</div>
+
+			  			</div> <!--end fields -->
+					</div> <!-- end ui form -->
+				</form>
+				</div> <!--end ui red secondary segment-->
+
+
+			</div> <!-- End tab segment. Leave this at bottom of ejs logic -->
 		<% } %>
 
 

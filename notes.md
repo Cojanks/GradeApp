@@ -24,3 +24,12 @@ UserSchema.virtual('totalAssignments').get(function (){
 
 This is put in the model document but outside the schema.
 Use this to collect all the grades from the student and then divide by assignments.length or something similar.
+
+
+***Tabs:
+http://stackoverflow.com/questions/21769214/using-the-tab-control-in-semantic-ui
+http://stackoverflow.com/questions/23195009/semantic-ui-tab-and-javascript
+http://stackoverflow.com/questions/36752213/semantic-ui-tab-history-on-reload
+https://github.com/Semantic-Org/Semantic-UI/issues/609
+https://www.sitepoint.com/community/t/same-tab-after-page-refresh/39684/9
+ - Lots of sites are talking about going the AJAX route to save a state change to a variable.

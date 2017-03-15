@@ -92,6 +92,7 @@ app.post("/course/:id/assignment/new", function(req, res){
                 }); // end assignment.create  
             }           
         }); // end student.findbyid
+        res.redirect("/");
     }else{
         Course.findById(courseOfStudent, function(err, foundParticularCourse){
             if(err){
@@ -112,7 +113,7 @@ app.post("/course/:id/assignment/new", function(req, res){
                 }); //end assignment.create
             }
         });//end course.find
-        //res.redirect("/");
+        res.redirect("/");
     };
 });
 

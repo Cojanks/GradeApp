@@ -18,7 +18,7 @@
 
 	<!-- Iteration logic for tab naming -->
 		<% for(var i=0; i<courses.length; i++){%>
-			<a class="item" data-tab="<%= courses[i]['courseNickname']%>"><%= courses[i]['courseNickname'] %></a>
+			<a class="item" data-tab="<%= courses[i]._id%>"><%= courses[i]['courseNickname'] %></a>
 		<% } %>
 	</div>
 
@@ -59,7 +59,7 @@
 		
 
 		<% for(var p=0; p<courses.length; p++){%>
-			<div class="ui bottom attached tab segment" data-tab="<%= courses[p]['courseNickname'] %>">
+			<div class="ui bottom attached tab segment" data-tab="<%= courses[p]._id %>">
 
 				<h3 class="ui horizontal divider section header"><%= courses[p]['courseName'] %></h3>
 				<div class="ui blue segment">

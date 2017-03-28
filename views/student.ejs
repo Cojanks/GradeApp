@@ -2,56 +2,72 @@
 <div class="ui container">
 
 	<h2 class="ui center aligned icon header">
-  		<i class="circular book icon"></i>
-  		Mr. Jenkins 5th Period Class
+		<i class="circular book icon"></i>
+		Mr. Jenkins 5th Period Class
 	</h2>
 	
 	<h2 class="ui horizontal divider section header"><%= student.studentName %></h2>
 	
 	<div class="ui teal segment">
-	    
-        <div class="ui horizontal divider section header" href="/">Assignments</div>
-        <div class="ui divided relaxed  list studentList middle aligned">
-	            <% for(var i=0; i< student.studentAssignments.length; i++){%>
-	                <div class="item">
+
+		<div class="ui horizontal divider section header" href="/">Assignments</div>
+		<div class="ui divided relaxed selection list studentList middle aligned">
+			<% for(var i=0; i< student.studentAssignments.length; i++){%>
+			<div class="item">
+				<div class="ui styled fluid accordion">
+					<div class="title">
+
 						<div class='right floated middle aligned content'>
-							<div class='student_gradeAvg'>								
-								<strong><%= student.studentAssignments[i].assignmentGrade%></strong> -
 							
+								<strong><%= student.studentAssignments[i].assignmentGrade%></strong> -
 								<% if(student.studentAssignments[i].assignmentGrade <= 59){ %>
-									<i class="gradeicon small circular red inverted icon middle aligned fitted">F</i>
+								<i class="gradeicon small circular red inverted icon middle aligned fitted">F</i>
 								<% }else if(student.studentAssignments[i].assignmentGrade <= 63){ %>
-									<i class="gradeicon small circular orange icon middle aligned fitted">D-</i>
+								<i class="gradeicon small circular orange icon middle aligned fitted">D-</i>
 								<% }else if(student.studentAssignments[i].assignmentGrade <= 67){ %>
-									<i class="gradeicon small circular orange icon middle aligned fitted">D</i>
+								<i class="gradeicon small circular orange icon middle aligned fitted">D</i>
 								<% }else if(student.studentAssignments[i].assignmentGrade <= 69){ %>
-									<i class="gradeicon small circular orange icon middle aligned fitted">D+</i>
+								<i class="gradeicon small circular orange icon middle aligned fitted">D+</i>
 								<% }else if(student.studentAssignments[i].assignmentGrade <= 73){ %>
-									<i class="gradeicon small circular icon middle aligned fitted">C-</i>
+								<i class="gradeicon small circular icon middle aligned fitted">C-</i>
 								<% }else if(student.studentAssignments[i].assignmentGrade <= 77){ %>
-									<i class="gradeicon small circular icon middle aligned fitted">C</i>
+								<i class="gradeicon small circular icon middle aligned fitted">C</i>
 								<% }else if(student.studentAssignments[i].assignmentGrade <= 79){ %>
-									<i class="gradeicon small circular icon middle aligned fitted">C+</i>
+								<i class="gradeicon small circular icon middle aligned fitted">C+</i>
 								<% }else if(student.studentAssignments[i].assignmentGrade <= 83){ %>
-									<i class="gradeicon small circular blue icon middle aligned fitted">B-</i>
+								<i class="gradeicon small circular blue icon middle aligned fitted">B-</i>
 								<% }else if(student.studentAssignments[i].assignmentGrade <= 87){ %>
-									<i class="gradeicon small circular blue icon middle aligned fitted">B</i>
+								<i class="gradeicon small circular blue icon middle aligned fitted">B</i>
 								<% }else if(student.studentAssignments[i].assignmentGrade <= 89){ %>
-									<i class="gradeicon small circular blue icon middle aligned fitted">B+</i>
+								<i class="gradeicon small circular blue icon middle aligned fitted">B+</i>
 								<% }else if(student.studentAssignments[i].assignmentGrade <= 93){ %>
-									<i class="gradeicon small circular green inverted icon middle aligned fitted">A-</i>
+								<i class="gradeicon small circular green inverted icon middle aligned fitted">A-</i>
 								<% }else{ %>
-									<i class="gradeicon small circular green inverted icon middle aligned fitted">A</i>
+								<i class="gradeicon small circular green inverted icon middle aligned fitted">A</i>
 								<% } %>
-							</div>
 						</div>
+
 						<div class='middle aligned content'>
 							<div class='header student_name'><%= student.studentAssignments[i].assignmentName %></div>
 						</div>
+					</div> <!-- end title of accordion -->
+
+					<div class="content">
+						<p class="assigndesc"><%= student.studentAssignments[i].assignmentDescription %></p>		
+						<div class="right floated content">
+							<div class="ui right action input">
+								<input type="text" placeholder="Grade">
+								<button class="ui green button">Update Grade</button>
+							</div>
+							<button class="ui red inverted button">Delete</button>
+						</div>
 					</div>
-				<% } %>
-	    </div>
-    </div>
+
+				</div>
+			</div>
+			<% } %>
+		</div>
+	</div>
 
 
 
@@ -60,8 +76,8 @@
 
 
 
-    <div class="ui bottom fixed">
-        <a class="ui horizontal divider section header" href="/">Go Back</a>
-    </div>
+	<div class="ui bottom fixed">
+		<a class="ui horizontal divider section header" href="/">Go Back</a>
+	</div>
 </div> <!-- End main body ui container div -->
 <% include partials/footer %>

@@ -23,9 +23,6 @@ seedDB.seedDB();
 // Index 
 app.get("/", function(req, res){
     Course.find().populate('courseStudents').exec(function(err, courses){
-        //This will populate the students in each class (meaning that information will be sent into the ejs file). res.send(courses) to see what I mean. 
-        // THE INDEX IS CURRENTLY BROKEN BECAUSE OF THIS HOWEVER (much of the logic in the index is based off the OLD res.render): //res.render("index", {students: allStudents, courses: allCourses});
-        // res.send(courses)
         res.render("index", {courses: courses});
     });
 });
@@ -119,7 +116,7 @@ app.post("/course/:id/assignment/new", function(req, res){
     };
 });
 
-// Show student - GET / SHOW - **NOT WORKING CURRENTLY**
+// Show student - GET / SHOW -
 app.get("/student/:id", function(req, res){
     Student.findById(req.params.id).populate('studentAssignments').exec(function(err, foundStudent){
         res.render("student", {student: foundStudent});

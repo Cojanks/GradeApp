@@ -38,3 +38,16 @@ body{
 i.gradeicon.icon{
 	font-family: 'Lato', sans-serif !important;
 }
+.ui.styled.accordion, .ui.styled.accordion .accordion{
+	border: none !important;
+	box-shadow: none !important;
+	background:none;
+}
+p.assigndesc{
+	padding-left:.9vw;
+	margin-bottom: 0;
+	
+}
+.ui.styled.accordion .content{
+	padding-bottom:.5em;
+}

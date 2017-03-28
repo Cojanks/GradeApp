@@ -5,81 +5,89 @@ var Course = require("./models/course");
 
 var data = [
 	{
-		courseName: "Texas History",
+		courseName: "Texas History - 1st Period",
 	   courseDescription: "History class",
-	   courseNickname: "hist",
+	   courseNickname: "Texas History",
 	   courseStudents: []
 
 	},
 	{
 		courseName: "Calculus",
    	courseDescription: "This is a math class",
-   	courseNickname: "math",
+   	courseNickname: "Calculus - 2nd Period",
    	courseStudents: []
 	}
 ]; // data
 
 var data2 =[
 	{
-		studentName: 'Corey Jenkins',
+		studentName: 'James Holden',
 		studentID: 7788004,
 		studentSex: 'm',
+		studentAverage: 0,
 		studentAssignments:[
 			
 		] // individual assignments
 	}, // end individual student 
 	{
-		studentName: 'Dave Sweeney',
+		studentName: 'Paul Atreides',
 		studentID: 4562201,
 		studentSex: 'm',
+		studentAverage: 0,
 		studentAssignments:[
 			
 		] // individual assignments
 	}, // end individual student
 	{
-		studentName: 'Mark Dorf',
+		studentName: 'John Sheridan',
 		studentID: 765812,
 		studentSex: 'm',
+		studentAverage: 0,
 		studentAssignments:[
 			
 		] // individual assignments
 	}, // end individual student 
 	{
-		studentName: 'Maia Harms',
+		studentName: 'Naomi Nagata',
 		studentID: 7688831,
 		studentSex: 'f',
+		studentAverage: 0,
 		studentAssignments:[
 			
 		] // individual assignments
 	}, // end individual student
 	{
-		studentName: 'Patrick Racheff',
+		studentName: 'Kara Thrace',
 		studentID: 7993650,
-		studentSex: 'm',
+		studentSex: 'f',
+		studentAverage: 0,
 		studentAssignments:[
 			
 		] // individual assignments
 	}, // end individual student 
 	{
-		studentName: 'Marc August',
+		studentName: 'Mark Watney',
 		studentID: 2234908,
-		studentSex: 'f',
+		studentSex: 'm',
+		studentAverage: 0,
 		studentAssignments:[
 			
 		] // individual assignments
 	}, // end individual student
 	{
-		studentName: 'Vytenis Krukonis',
+		studentName: 'Susan Ivanova',
 		studentID: 3132671,
-		studentSex: 'm',
+		studentSex: 'f',
+		studentAverage: 0,
 		studentAssignments:[
 			
 		] // individual assignments
 	}, // end individual student 
 	{
-		studentName: 'Alex Flannery',
+		studentName: 'Phil Coulson',
 		studentID: 2547089,
-		studentSex: 'f',
+		studentSex: 'm',
+		studentAverage: 0,
 		studentAssignments:[
 			
 		] // individual assignments
@@ -108,8 +116,6 @@ function removeDataFromDB(){
          console.log("Assignments Removed!!!")
       }
    });
-
-
 }
 
 

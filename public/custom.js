@@ -1,9 +1,9 @@
 $(function() { //document ready func
 
 
-$('.menu .item')
-  .tab()
-;
+$('.menu .item').tab();
+
+$('.ui.accordion').accordion();
 
 
 

@@ -31,3 +31,10 @@ body{
 .topbottom{
 	margin:3vh auto;
 }
+.testingheader{
+	float:left;
+}
+
+i.gradeicon.icon{
+	font-family: 'Lato', sans-serif !important;
+}

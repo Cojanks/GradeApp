@@ -16,8 +16,9 @@ app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride("_method")); 
 app.use(express.static(__dirname + '/public/'));
+app.use('/stylesheets', express.static(__dirname + '/public/'));
 seedDB.seedDB();
-//seedDB.removeDataFromDB();
+// seedDB.removeDataFromDB();
 
 // Index 
 app.get("/", function(req, res){
@@ -74,7 +75,8 @@ app.post("/course/:id/assignment/new", function(req, res){
     var assignmentName = req.body.assignmentName;
     var assignmentDesc = req.body.assignmentDesc;
     var addToStudent_Id = req.body.addTo;
-    var newAssignment = {assignmentName: assignmentName, assignmentDescription: assignmentDesc};
+    var assignmentGrade = 0;
+    var newAssignment = {assignmentName: assignmentName, assignmentDescription: assignmentDesc, assignmentGrade: assignmentGrade};
 
     if(addToStudent_Id !== "all"){
         Student.findById(addToStudent_Id, function(err, foundStudentByID){
@@ -121,6 +123,7 @@ app.post("/course/:id/assignment/new", function(req, res){
 app.get("/student/:id", function(req, res){
     Student.findById(req.params.id).populate('studentAssignments').exec(function(err, foundStudent){
         res.render("student", {student: foundStudent});
+        // res.send(foundStudent);
     });
 });
 

@@ -15,35 +15,36 @@
 	            <% for(var i=0; i< student.studentAssignments.length; i++){%>
 	                <div class="item">
 						<div class='right floated middle aligned content'>
-							<div>
-								<strong><%= student.studentAssignments[i].assignmantGrade%></strong>
+							<div class='student_gradeAvg'>								
+								<strong><%= student.studentAssignments[i].assignmentGrade%></strong> -
+							
+								<% if(student.studentAssignments[i].assignmentGrade <= 59){ %>
+									<i class="gradeicon small circular red inverted icon middle aligned fitted">F</i>
+								<% }else if(student.studentAssignments[i].assignmentGrade <= 63){ %>
+									<i class="gradeicon small circular orange icon middle aligned fitted">D-</i>
+								<% }else if(student.studentAssignments[i].assignmentGrade <= 67){ %>
+									<i class="gradeicon small circular orange icon middle aligned fitted">D</i>
+								<% }else if(student.studentAssignments[i].assignmentGrade <= 69){ %>
+									<i class="gradeicon small circular orange icon middle aligned fitted">D+</i>
+								<% }else if(student.studentAssignments[i].assignmentGrade <= 73){ %>
+									<i class="gradeicon small circular icon middle aligned fitted">C-</i>
+								<% }else if(student.studentAssignments[i].assignmentGrade <= 77){ %>
+									<i class="gradeicon small circular icon middle aligned fitted">C</i>
+								<% }else if(student.studentAssignments[i].assignmentGrade <= 79){ %>
+									<i class="gradeicon small circular icon middle aligned fitted">C+</i>
+								<% }else if(student.studentAssignments[i].assignmentGrade <= 83){ %>
+									<i class="gradeicon small circular blue icon middle aligned fitted">B-</i>
+								<% }else if(student.studentAssignments[i].assignmentGrade <= 87){ %>
+									<i class="gradeicon small circular blue icon middle aligned fitted">B</i>
+								<% }else if(student.studentAssignments[i].assignmentGrade <= 89){ %>
+									<i class="gradeicon small circular blue icon middle aligned fitted">B+</i>
+								<% }else if(student.studentAssignments[i].assignmentGrade <= 93){ %>
+									<i class="gradeicon small circular green inverted icon middle aligned fitted">A-</i>
+								<% }else{ %>
+									<i class="gradeicon small circular green inverted icon middle aligned fitted">A</i>
+								<% } %>
 							</div>
 						</div>
-						<% if(student.studentAssignments[i].assignmantGrade <= 59){ %>
-							<i class="small circular red inverted icon middle aligned fitted" style="font-family: 'Lato', sans-serif !important;">F</i>
-						<% }else if(student.studentAssignments[i].assignmantGrade <= 63){ %>
-							<i class="small circular orange icon middle aligned fitted" style="font-family: 'Lato', sans-serif !important;">D-</i>
-						<% }else if(student.studentAssignments[i].assignmantGrade <= 67){ %>
-							<i class="small circular orange icon middle aligned fitted" style="font-family: 'Lato', sans-serif !important;">D</i>
-						<% }else if(student.studentAssignments[i].assignmantGrade <= 69){ %>
-							<i class="small circular orange icon middle aligned fitted" style="font-family: 'Lato', sans-serif !important;">D+</i>
-						<% }else if(student.studentAssignments[i].assignmantGrade <= 73){ %>
-							<i class="small circular icon middle aligned fitted" style="font-family: 'Lato', sans-serif !important;">C-</i>
-						<% }else if(student.studentAssignments[i].assignmantGrade <= 77){ %>
-							<i class="small circular icon middle aligned fitted" style="font-family: 'Lato', sans-serif !important;">C</i>
-						<% }else if(student.studentAssignments[i].assignmantGrade <= 79){ %>
-							<i class="small circular icon middle aligned fitted" style="font-family: 'Lato', sans-serif !important;">C+</i>
-						<% }else if(student.studentAssignments[i].assignmantGrade <= 83){ %>
-							<i class="small circular blue icon middle aligned fitted" style="font-family: 'Lato', sans-serif !important;">B-</i>
-						<% }else if(student.studentAssignments[i].assignmantGrade <= 87){ %>
-							<i class="small circular blue icon middle aligned fitted" style="font-family: 'Lato', sans-serif !important;">B</i>
-						<% }else if(student.studentAssignments[i].assignmantGrade <= 89){ %>
-							<i class="small circular blue icon middle aligned fitted" style="font-family: 'Lato', sans-serif !important;">B+</i>
-						<% }else if(student.studentAssignments[i].assignmantGrade <= 93){ %>
-							<i class="small circular green inverted icon middle aligned fitted" style="font-family: 'Lato', sans-serif !important;">A-</i>
-						<% }else{ %>
-							<i class="small circular green inverted icon middle aligned fitted" style="font-family: 'Lato', sans-serif !important;">A</i>
-						<% } %>
 						<div class='middle aligned content'>
 							<div class='header student_name'><%= student.studentAssignments[i].assignmentName %></div>
 						</div>

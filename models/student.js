@@ -6,21 +6,32 @@ var studentSchema = new Schema({
     studentName: String,
     studentID: String,
     studentSex: String,
+    studentAverage: Number,
     studentAssignments: [{
         type: Schema.Types.ObjectId,
         ref: 'assignment'
     }]
 });
 
-studentSchema.virtual('studentAverage').get(function (){
+studentSchema.virtual('studentAssignments.studentAverage').get(function (){
     var total = 0;
+
+
+
     if(this.studentAssignments.length>0){
+    	
     	this.studentAssignments.forEach(function(obj){
     		total += obj.assignmantGrade;
     	});
-    return (total/this.studentAssignments.length).toFixed(2);
- 	}
+
+    	if(total===0){
+    		return 0;
+    	}else{
+	   	return (total/this.studentAssignments.length).toFixed(2);
+ 		}
+ 	}else{
 	  return total;
+	}
 });
 
 const Student = mongoose.model("student", studentSchema);

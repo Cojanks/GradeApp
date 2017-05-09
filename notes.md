@@ -33,3 +33,6 @@ http://stackoverflow.com/questions/36752213/semantic-ui-tab-history-on-reload
 https://github.com/Semantic-Org/Semantic-UI/issues/609
 https://www.sitepoint.com/community/t/same-tab-after-page-refresh/39684/9
  - Lots of sites are talking about going the AJAX route to save a state change to a variable.
+
+ notes about req.params...:
+ https://www.udemy.com/the-web-developer-bootcamp/learn/v4/questions/1872246

@@ -15,9 +15,7 @@ var studentSchema = new Schema({
 
 studentSchema.virtual('studentAssignments.studentAverage').get(function (){
     var total = 0;
-
-
-
+    
     if(this.studentAssignments.length>0){
     	
     	this.studentAssignments.forEach(function(obj){

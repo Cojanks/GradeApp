@@ -34,7 +34,6 @@ body{
 .testingheader{
 	float:left;
 }
-
 i.gradeicon.icon{
 	font-family: 'Lato', sans-serif !important;
 }
@@ -45,9 +44,12 @@ i.gradeicon.icon{
 }
 p.assigndesc{
 	padding-left:.9vw;
-	margin-bottom: 0;
-	
+	margin-bottom: 0;	
 }
 .ui.styled.accordion .content{
-	padding-bottom:.5em;
+	padding: .5em 0em !important;
+}
+.ui.red.button{
+	padding: .9em 1.5em;
+  	margin: 0;
 }

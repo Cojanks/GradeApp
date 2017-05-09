@@ -5,9 +5,9 @@
 		<i class="circular book icon"></i>
 		Mr. Jenkins 5th Period Class
 	</h2>
-	
+
 	<h2 class="ui horizontal divider section header"><%= student.studentName %></h2>
-	
+
 	<div class="ui teal segment">
 
 		<div class="ui horizontal divider section header" href="/">Assignments</div>
@@ -18,7 +18,7 @@
 					<div class="title">
 
 						<div class='right floated middle aligned content'>
-							
+
 								<strong><%= student.studentAssignments[i].assignmentGrade%></strong> -
 								<% if(student.studentAssignments[i].assignmentGrade <= 59){ %>
 								<i class="gradeicon small circular red inverted icon middle aligned fitted">F</i>
@@ -53,13 +53,15 @@
 					</div> <!-- end title of accordion -->
 
 					<div class="content">
-						<p class="assigndesc"><%= student.studentAssignments[i].assignmentDescription %></p>		
+						<p class="assigndesc"><%= student.studentAssignments[i].assignmentDescription %></p>
 						<div class="right floated content">
 							<div class="ui right action input">
-								<input type="text" placeholder="Grade">
-								<button class="ui green button">Update Grade</button>
+								<form action="/student/<%= student._id %>/<%=student.studentAssignments[i]._id%>?_method=PUT" method="POST">
+									<input type="text" name="gradeInput" placeholder="Grade" value="<%= student.studentAssignments[i].assignmentGrade %>">
+									<button class="ui green button">Update Grade</button>
+								</form>
 							</div>
-							<button class="ui red inverted button">Delete</button>
+							<button class="ui red button">Delete</button>
 						</div>
 					</div>
 

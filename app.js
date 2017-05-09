@@ -14,13 +14,13 @@ app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 mongoose.connect("mongodb://localhost/grade");
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
-app.use(methodOverride("_method")); 
+app.use(methodOverride("_method"));
 app.use(express.static(__dirname + '/public/'));
 app.use('/stylesheets', express.static(__dirname + '/public/'));
 seedDB.seedDB();
 // seedDB.removeDataFromDB();
 
-// Index 
+// Index
 app.get("/", function(req, res){
     Course.find().populate('courseStudents').exec(function(err, courses){
         res.render("index", {courses: courses});
@@ -38,7 +38,7 @@ app.post("/course/new", function(req, res){
             console.log(err);
         }else{
             res.redirect("/");
-        };
+        }
     });
 });
 
@@ -47,11 +47,12 @@ app.post("/course/:id/student/new", function(req,res){
     var name = req.body.first + ' ' + req.body.last;
     var sex = req.body.sex;
     var studentid = req.body.inputid;
+    var average = 0;
     // create new student and save to DB
-    var newStudent = {studentName: name, studentSex: sex, studentID: studentid};
+    var newStudent = {studentName: name, studentSex: sex, studentID: studentid, studentAverage: average};
     Course.findById(req.params.id, function(err, foundCourse){
         if(err){
-            console.log(err)
+            console.log(err);
         }else{
             Student.create(newStudent, function(err, newlyCreated){
                 if(err){
@@ -60,15 +61,25 @@ app.post("/course/:id/student/new", function(req,res){
                     foundCourse.courseStudents.push(newlyCreated);
                     res.redirect("/");
                 }
-            foundCourse.save()
+            foundCourse.save();
             }); // end Student.findById
         }
-    }) //end Course.findByID    
+    }); //end Course.findByID
+});
+
+// Show student - GET / SHOW -
+app.get("/student/:id", function(req, res){
+    Student.findById(req.params.id).populate('studentAssignments').exec(function(err, foundStudent){
+      // console.log(foundStudent);
+
+      res.render("student", {student: foundStudent});
+      //   res.send(foundStudent);
+    });
 });
 
 //Create Assignment within Course
 app.post("/course/:id/assignment/new", function(req, res){
-    var courseOfStudent = req.params.id
+    var courseOfStudent = req.params.id;
     var assignmentName = req.body.assignmentName;
     var assignmentDesc = req.body.assignmentDesc;
     var addToStudent_Id = req.body.addTo;
@@ -88,8 +99,8 @@ app.post("/course/:id/assignment/new", function(req, res){
                         foundStudentByID.studentAssignments.push(newlyCreatedAssignment);
                         foundStudentByID.save();
                     }
-                }); // end assignment.create  
-            }           
+                }); // end assignment.create
+            }
         }); // end student.findbyid
         res.redirect("/");
     }else{
@@ -106,23 +117,31 @@ app.post("/course/:id/assignment/new", function(req, res){
                             Student.findById(obj, function(err, foundStudentByID2){
                                 foundStudentByID2.studentAssignments.push(newlyCreatedAssignment2);
                                 foundStudentByID2.save();
-                            })
+                            });
                         });
                     }
                 }); //end assignment.create
             }
         });//end course.find
         res.redirect("/");
-    };
+    }
 });
 
-// Show student - GET / SHOW -
-app.get("/student/:id", function(req, res){
-    Student.findById(req.params.id).populate('studentAssignments').exec(function(err, foundStudent){
-        res.render("student", {student: foundStudent});
-        // res.send(foundStudent);
-    });
+// Update assignment of student
+app.put("/student/:id/:assignmentId", function(req, res){
+   Student.findById(req.params.id).populate('studentAssignments').exec(function(err, foundStudent){
+      Assignment.findByIdAndUpdate(req.params.assignmentId, {assignmentGrade: req.body.gradeInput}, function(err, updatedAssignment){
+         if(err){
+            conole.log(err);
+        }else{
+            res.redirect("/student/" + req.params.id);
+        }
+      });
+   });
 });
+
+// Delete assignment of student
+
 
 app.listen(3000, function () {
   console.log('Grade App is running');

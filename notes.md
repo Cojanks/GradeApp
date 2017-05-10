@@ -1,4 +1,4 @@
-***Getting averages (grade)
+Getting averages (grade)
 Looks like you will need to used MongoDB's Aggregation functions: https://docs.mongodb.com/manual/aggregation/
 
 http://stackoverflow.com/questions/40323210/node-js-mongoose-calculations-arrays-populations
@@ -26,7 +26,7 @@ This is put in the model document but outside the schema.
 Use this to collect all the grades from the student and then divide by assignments.length or something similar.
 
 
-***Tabs:
+Tabs:
 http://stackoverflow.com/questions/21769214/using-the-tab-control-in-semantic-ui
 http://stackoverflow.com/questions/23195009/semantic-ui-tab-and-javascript
 http://stackoverflow.com/questions/36752213/semantic-ui-tab-history-on-reload
@@ -36,3 +36,11 @@ https://www.sitepoint.com/community/t/same-tab-after-page-refresh/39684/9
 
  notes about req.params...:
  https://www.udemy.com/the-web-developer-bootcamp/learn/v4/questions/1872246
+
+
+
+
+ CURRENT ISSUES:
+ -[FIXED]If an assignment has been added to all students, it only has one id so if it gets updated or deleted, it does that for ALL students.
+ -student Average is not updating when you add/update assignments to a student. - This has SOMETHING to do with virtuals, I need to find a way
+ 	to call or use a virtual in ejs to update the displayed average. Perhaps call it in the get route? DEFINITELY in the code of the virtual. console.log("logged from here") gets run 16 times each time you load index.ejs which means those if statements are fucked

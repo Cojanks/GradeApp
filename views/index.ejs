@@ -69,31 +69,32 @@
 						<!-- LIST OF STUDENTS ADDED HERE -->
 
 							<% for(var s=0; s < courses[p]['courseStudents'].length; s++){%>
+								<% var avg = courses[p].courseStudents[s].getAverage %>
 								<a class='item' href="/student/<%=courses[p].courseStudents[s]._id%>">
 									<div class='right floated middle aligned content'>
 										<div class='student_gradeAvg'>
-											<%= courses[p].courseStudents[s].studentAverage%> - 
-											<% if(courses[p].courseStudents[s].studentAverage <= 59){ %>
+											<%= courses[p].courseStudents[s].getAverage %> -
+											<% if(avg <= 59){ %>
 												<i class="gradeicon small circular red inverted icon middle aligned fitted">F</i>
-											<% }else if(courses[p].courseStudents[s].studentAverage <= 63){ %>
+											<% }else if(avg <= 63){ %>
 												<i class="gradeicon small circular orange icon middle aligned fitted">D-</i>
-											<% }else if(courses[p].courseStudents[s].studentAverage <= 67){ %>
+											<% }else if(avg <= 67){ %>
 												<i class="gradeicon small circular orange icon middle aligned fitted">D</i>
-											<% }else if(courses[p].courseStudents[s].studentAverage <= 69){ %>
+											<% }else if(avg <= 69){ %>
 												<i class="gradeicon small circular orange icon middle aligned fitted">D+</i>
-											<% }else if(courses[p].courseStudents[s].studentAverage <= 73){ %>
+											<% }else if(avg <= 73){ %>
 												<i class="gradeicon small circular icon middle aligned fitted">C-</i>
-											<% }else if(courses[p].courseStudents[s].studentAverage <= 77){ %>
+											<% }else if(avg <= 77){ %>
 												<i class="gradeicon small circular icon middle aligned fitted">C</i>
-											<% }else if(courses[p].courseStudents[s].studentAverage <= 79){ %>
+											<% }else if(avg <= 79){ %>
 												<i class="gradeicon small circular icon middle aligned fitted">C+</i>
-											<% }else if(courses[p].courseStudents[s].studentAverage <= 83){ %>
+											<% }else if(avg <= 83){ %>
 												<i class="gradeicon small circular blue icon middle aligned fitted">B-</i>
-											<% }else if(courses[p].courseStudents[s].studentAverage <= 87){ %>
+											<% }else if(avg <= 87){ %>
 												<i class="gradeicon small circular blue icon middle aligned fitted">B</i>
-											<% }else if(courses[p].courseStudents[s].studentAverage <= 89){ %>
+											<% }else if(avg <= 89){ %>
 												<i class="gradeicon small circular blue icon middle aligned fitted">B+</i>
-											<% }else if(courses[p].courseStudents[s].studentAverage <= 93){ %>
+											<% }else if(avg <= 93){ %>
 												<i class="gradeicon small circular green inverted icon middle aligned fitted">A-</i>
 											<% }else{ %>
 												<i class="gradeicon small circular green inverted icon middle aligned fitted">A</i>

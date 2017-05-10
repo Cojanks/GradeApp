@@ -6,29 +6,30 @@ var studentSchema = new Schema({
     studentName: String,
     studentID: String,
     studentSex: String,
-    studentAverage: Number,
+   //  studentAverage: Number,
     studentAssignments: [{
         type: Schema.Types.ObjectId,
         ref: 'assignment'
-    }]
+    }],
+
+
 });
 
-studentSchema.virtual('studentAssignments.studentAverage').get(function (){
-    var total = 0;
-    
-    if(this.studentAssignments.length>0){
-    	
+studentSchema.virtual('getAverage').get(function (){
+   var total = 0;
+
+   if(this.studentAssignments.length >= 0){
     	this.studentAssignments.forEach(function(obj){
-    		total += obj.assignmantGrade;
+    		total = total + obj.assignmentGrade;
     	});
 
     	if(total===0){
     		return 0;
     	}else{
-	   	return (total/this.studentAssignments.length).toFixed(2);
+	   	return parseFloat((total/this.studentAssignments.length).toFixed(2));
  		}
  	}else{
-	  return total;
+	  return 0;
 	}
 });
 

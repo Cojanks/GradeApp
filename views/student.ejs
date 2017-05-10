@@ -19,7 +19,7 @@
 
 						<div class='right floated middle aligned content'>
 
-								<strong><%= student.studentAssignments[i].assignmentGrade%></strong> -
+								<strong><%= student.studentAssignments[i].assignmentGrade %></strong> -
 								<% if(student.studentAssignments[i].assignmentGrade <= 59){ %>
 								<i class="gradeicon small circular red inverted icon middle aligned fitted">F</i>
 								<% }else if(student.studentAssignments[i].assignmentGrade <= 63){ %>
@@ -61,7 +61,9 @@
 									<button class="ui green button">Update Grade</button>
 								</form>
 							</div>
-							<button class="ui red button">Delete</button>
+							<form action="/student/<%= student._id %>/<%=student.studentAssignments[i]._id%>?_method=DELETE" method="POST">
+								<button class="ui red button">Delete</button>
+							</form>
 						</div>
 					</div>
 

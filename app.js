@@ -22,7 +22,7 @@ seedDB.seedDB();
 
 // Index
 app.get("/", function(req, res){
-    Course.find().populate('courseStudents').exec(function(err, courses){
+    Course.find().populate({path: 'courseStudents', populate: {path: 'studentAssignments'}}).exec(function(err, courses){
         res.render("index", {courses: courses});
     });
 });
@@ -69,12 +69,11 @@ app.post("/course/:id/student/new", function(req,res){
 
 // Show student - GET / SHOW -
 app.get("/student/:id", function(req, res){
-    Student.findById(req.params.id).populate('studentAssignments').exec(function(err, foundStudent){
-      // console.log(foundStudent);
-
-      res.render("student", {student: foundStudent});
-      //   res.send(foundStudent);
-    });
+    Student.findById(req.params.id)
+         .populate('studentAssignments')
+         .exec(function(err, foundStudent){
+            res.render("student", {student: foundStudent});
+         });
 });
 
 //Create Assignment within Course
@@ -108,19 +107,32 @@ app.post("/course/:id/assignment/new", function(req, res){
             if(err){
                 console.log(err);
             }else{
-                Assignment.create(newAssignment, function(err, newlyCreatedAssignment2){
-                    if(err){
-                        console.log(err);
-                    }else{
+               // ORIGINAL CODE
+               //  Assignment.create(newAssignment, function(err, newlyCreatedAssignment2){
+               //      if(err){
+               //          console.log(err);
+               //      }else{
+               //          newlyCreatedAssignment2.save();
+               //          foundParticularCourse.courseStudents.forEach(function(obj){
+               //              Student.findById(obj, function(err, foundStudentByID2){
+               //                  foundStudentByID2.studentAssignments.push(newlyCreatedAssignment2);
+               //                  foundStudentByID2.save();
+               //              });
+               //          });
+               //      }
+               //  }); //end assignment.create
+               // END ORIGINAL CODE
+
+               foundParticularCourse.courseStudents.forEach(function(obj){
+                  Assignment.create(newAssignment, function(err, newlyCreatedAssignment2){
+                     Student.findById(obj, function(err, foundStudentByID2){
                         newlyCreatedAssignment2.save();
-                        foundParticularCourse.courseStudents.forEach(function(obj){
-                            Student.findById(obj, function(err, foundStudentByID2){
-                                foundStudentByID2.studentAssignments.push(newlyCreatedAssignment2);
-                                foundStudentByID2.save();
-                            });
-                        });
-                    }
-                }); //end assignment.create
+                        foundStudentByID2.studentAssignments.push(newlyCreatedAssignment2);
+                        foundStudentByID2.save();
+                     });
+                  });
+               });
+
             }
         });//end course.find
         res.redirect("/");
@@ -141,6 +153,11 @@ app.put("/student/:id/:assignmentId", function(req, res){
 });
 
 // Delete assignment of student
+app.delete("/student/:id/:assignmentId", function(req, res){
+   Student.findById(req.params.id).populate('studentAssignments').exec(function(err, foundStudent){
+      res.send(foundStudent);
+   });
+});
 
 
 app.listen(3000, function () {
